@@ -61,6 +61,7 @@ public class GameManager : MonoBehaviour
         pulpitSpawner.BeginSpawning();
 
         SetState(GameState.Playing);
+        AudioManager.Instance.ResumeMusic();
     }
 
     public void RegisterSuccessfulMove()
@@ -69,6 +70,7 @@ public class GameManager : MonoBehaviour
 
         Score++;
         OnScoreChanged?.Invoke(Score);
+        AudioManager.Instance.PlayScore();
     }
 
     public void ReportPlayerFell()
@@ -77,6 +79,8 @@ public class GameManager : MonoBehaviour
 
         pulpitSpawner.StopSpawning();
         SetState(GameState.GameOver);
+        AudioManager.Instance.PlayFall();
+        AudioManager.Instance.PauseMusic();
     }
 
     public void RestartGame()

@@ -22,8 +22,8 @@ public class UIManager : MonoBehaviour
 
     private void Awake()
     {
-        startButton.onClick.AddListener(() => GameManager.Instance.StartGame());
-        restartButton.onClick.AddListener(() => GameManager.Instance.RestartGame());
+        startButton.onClick.AddListener(() => { AudioManager.Instance.PlayButtonClick(); GameManager.Instance.StartGame(); });
+        restartButton.onClick.AddListener(() => { AudioManager.Instance.PlayButtonClick(); GameManager.Instance.RestartGame(); });
     }
 
     private void OnEnable()

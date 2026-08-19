@@ -4,6 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(Collider))]
 public class PulpitController : MonoBehaviour
 {
+    [SerializeField] private TMPro.TMP_Text timerText;
     public int PulpitId { get; private set; }
 
     public event Action<PulpitController> OnAboutToExpire;
@@ -52,6 +53,10 @@ public class PulpitController : MonoBehaviour
             float warnWindow = Mathf.Max(spawnTriggerTime, 0.01f);
             float t = 1f - Mathf.Clamp01(remaining / warnWindow);
             pulpitRenderer.material.color = Color.Lerp(baseColor, WarningColor, t);
+        }
+        if (timerText != null)
+        {
+            timerText.text = Mathf.Max(0f, remaining).ToString("F2");
         }
 
         if (remaining <= 0f)
