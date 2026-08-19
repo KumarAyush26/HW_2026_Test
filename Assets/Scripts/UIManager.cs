@@ -20,6 +20,10 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Button startButton;
     [SerializeField] private Button restartButton;
 
+    [Header("Milestone")]
+    [SerializeField] private GameObject milestoneToast;
+    [SerializeField] private float milestoneDisplaySeconds = 2.5f;
+
     private void Awake()
     {
         startButton.onClick.AddListener(() => { AudioManager.Instance.PlayButtonClick(); GameManager.Instance.StartGame(); });
@@ -31,10 +35,24 @@ public class UIManager : MonoBehaviour
         
     }
 
+    private void HandleMilestoneReached(int score)
+    {
+        StopAllCoroutines(); // in case a previous toast is still fading
+        StartCoroutine(ShowMilestoneToast());
+    }
+
+    private System.Collections.IEnumerator ShowMilestoneToast()
+    {
+        milestoneToast.SetActive(true);
+        yield return new WaitForSeconds(milestoneDisplaySeconds);
+        milestoneToast.SetActive(false);
+    }
+
     private void Start()
     {
         GameManager.Instance.OnStateChanged += HandleStateChanged;
         GameManager.Instance.OnScoreChanged += HandleScoreChanged;
+        GameManager.Instance.OnMilestoneReached += HandleMilestoneReached; // add this
         HandleStateChanged(GameManager.Instance.CurrentState);
         HandleScoreChanged(GameManager.Instance.Score);
     }
@@ -44,6 +62,7 @@ public class UIManager : MonoBehaviour
         if (GameManager.Instance == null) return;
         GameManager.Instance.OnStateChanged -= HandleStateChanged;
         GameManager.Instance.OnScoreChanged -= HandleScoreChanged;
+        GameManager.Instance.OnMilestoneReached -= HandleMilestoneReached;
     }
 
     private void HandleStateChanged(GameState state)

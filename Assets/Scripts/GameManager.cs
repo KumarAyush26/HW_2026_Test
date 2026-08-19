@@ -27,6 +27,11 @@ public class GameManager : MonoBehaviour
 
     private GameObject activePlayer;
 
+    public event Action<int> OnMilestoneReached;
+
+    private static readonly int[] Milestones = { 50 };
+    private int nextMilestoneIndex = 0;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -71,6 +76,12 @@ public class GameManager : MonoBehaviour
         Score++;
         OnScoreChanged?.Invoke(Score);
         AudioManager.Instance.PlayScore();
+
+        if (nextMilestoneIndex < Milestones.Length && Score == Milestones[nextMilestoneIndex])
+        {
+            OnMilestoneReached?.Invoke(Score);
+            nextMilestoneIndex++;
+        }
     }
 
     public void ReportPlayerFell()
