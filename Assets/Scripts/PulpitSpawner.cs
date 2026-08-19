@@ -22,7 +22,6 @@ public class PulpitSpawner : MonoBehaviour
     {
         isSpawning = true;
         SpawnFirstPulpit();
-        SpawnNext(FirstPulpit.transform.position, exclude: null);
     }
 
     public void StopSpawning()
@@ -53,7 +52,6 @@ public class PulpitSpawner : MonoBehaviour
     private void SpawnNext(Vector3 fromPosition, PulpitController exclude)
     {
         if (!isSpawning) return;
-        if (activePulpits.Count >= 2) return; 
 
         Vector3 spawnPos = FindValidAdjacentPosition(fromPosition);
         PulpitController pulpit = CreatePulpit(spawnPos);
