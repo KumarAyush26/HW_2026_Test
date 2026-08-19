@@ -43,10 +43,20 @@ public class GameManager : MonoBehaviour
         ConfigLoader.Instance.Load(OnConfigLoaded);
     }
 
+    private void OnEnable()
+    {
+        OnScoreChanged += LogScore; 
+    }
+
+    private void LogScore(int newScore)
+    {
+        Debug.Log($"[Score] {newScore}");
+    }
+
     private void OnConfigLoaded()
     {
         SetState(GameState.MainMenu);
-        StartGame();
+        StartGame(); //change it later
     }
 
     public void StartGame()
