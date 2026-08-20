@@ -88,7 +88,7 @@ See `/GameplayFootage` in this repo for a recorded playthrough video.
 
 | Start Screen | Gameplay | Game Over |
 |---|---|---|
-| ![Start Screen](GameplayFootage/start_screen.png) | ![Gameplay](GameplayFootage/gameplay.png) | ![Game Over](GameplayFootage/game_over.png) |
+| ![Start Screen](GameplayFootage/start_screen.png.png) | ![Gameplay](GameplayFootage/gameplay.png.png) | ![Game Over](GameplayFootage/game_over.png.png) |
 
 ## Built with
 
